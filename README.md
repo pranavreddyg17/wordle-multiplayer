@@ -7,8 +7,6 @@
 
 Multiplayer Wordle is a full-stack web application that brings the classic daily word game to a real-time multiplayer setting. Create a room, share the code, and battle your friends to see who can guess the words fastest across multiple rounds.
 
-![Home Screen](./docs/home.png)
-
 ## ✨ Features
 
 - **Real-Time Multiplayer**: Built with WebSockets for instant state synchronization. See your opponents guess and solve the word live!
@@ -18,16 +16,7 @@ Multiplayer Wordle is a full-stack web application that brings the classic daily
 - **Responsive Design**: Playable on desktop, tablet, and mobile browsers.
 - **Fair Play**: Server-side guess validation and word dictionaries prevent cheating.
 
-## 🖼️ Screenshots
-
-<div align="center">
-  <img src="./docs/lobby.png" alt="Lobby Screen" width="48%">
-  <img src="./docs/game.png" alt="Game Screen" width="48%">
-</div>
-
 ## 🚀 Quick Start (Local Development)
-
-### Prerequisites
 - Node.js (v16.0.0 or higher)
 - npm
 
