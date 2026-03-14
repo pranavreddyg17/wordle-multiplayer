@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Multiplayer Wordle — compete with friends in real-time word guessing battles">
+  <title>Multiplayer Wordle</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- ========== HOME SCREEN ========== -->
+  <div id="screen-home" class="screen active">
+    <div class="home-container">
+      <div class="logo-section">
+        <div class="logo-tiles">
+          <span class="logo-tile correct" style="--delay:0">W</span>
+          <span class="logo-tile present" style="--delay:1">O</span>
+          <span class="logo-tile absent" style="--delay:2">R</span>
+          <span class="logo-tile correct" style="--delay:3">D</span>
+          <span class="logo-tile present" style="--delay:4">L</span>
+          <span class="logo-tile correct" style="--delay:5">E</span>
+        </div>
+        <h1 class="title">Multiplayer Wordle</h1>
+        <p class="subtitle">Challenge your friends to real-time word battles</p>
+      </div>
+
+      <div class="home-card glass-panel">
+        <div class="input-group">
+          <label for="input-name">Your Name</label>
+          <input type="text" id="input-name" placeholder="Enter your display name" maxlength="20" autocomplete="off" spellcheck="false">
+        </div>
+
+        <div class="home-actions">
+          <button id="btn-create" class="btn btn-primary btn-large">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Create Room
+          </button>
+
+          <div class="divider-row">
+            <span class="divider-line"></span>
+            <span class="divider-text">or</span>
+            <span class="divider-line"></span>
+          </div>
+
+          <div class="join-row">
+            <input type="text" id="input-code" placeholder="Room Code" maxlength="9" autocomplete="off" spellcheck="false" class="input-code">
+            <button id="btn-join" class="btn btn-secondary">Join</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="home-features">
+        <div class="feature">
+          <div class="feature-icon">⚡</div>
+          <span>Real-time</span>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">👥</div>
+          <span>2-10 Players</span>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🏆</div>
+          <span>Multi-round</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== LOBBY SCREEN ========== -->
+  <div id="screen-lobby" class="screen">
+    <div class="lobby-container">
+      <div class="lobby-header">
+        <button id="btn-leave-lobby" class="btn btn-ghost btn-back">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Leave
+        </button>
+        <div class="room-code-display">
+          <span class="room-code-label">Room Code</span>
+          <span id="lobby-room-code" class="room-code-value">XXXX-0000</span>
+          <button id="btn-copy-code" class="btn btn-icon" title="Copy code">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="lobby-main">
+        <div class="lobby-players glass-panel">
+          <h2>Players <span id="lobby-player-count" class="badge">0/10</span></h2>
+          <div id="lobby-player-list" class="player-list"></div>
+        </div>
+
+        <div id="lobby-settings" class="lobby-settings glass-panel" style="display:none">
+          <h2>Game Settings</h2>
+          <div class="setting-row">
+            <label for="setting-rounds">Rounds</label>
+            <div class="setting-control">
+              <button class="btn btn-icon btn-dec" data-target="setting-rounds">−</button>
+              <span id="setting-rounds" class="setting-value" data-min="1" data-max="10" data-value="5">5</span>
+              <button class="btn btn-icon btn-inc" data-target="setting-rounds">+</button>
+            </div>
+          </div>
+          <div class="setting-row">
+            <label for="setting-timer">Timer (sec)</label>
+            <div class="setting-control">
+              <button class="btn btn-icon btn-dec" data-target="setting-timer">−</button>
+              <span id="setting-timer" class="setting-value" data-min="30" data-max="600" data-value="180" data-step="30">180</span>
+              <button class="btn btn-icon btn-inc" data-target="setting-timer">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lobby-footer">
+        <button id="btn-start" class="btn btn-primary btn-large" style="display:none">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Start Game
+        </button>
+        <p id="lobby-waiting" class="lobby-waiting">Waiting for host to start the game…</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== GAME SCREEN ========== -->
+  <div id="screen-game" class="screen">
+    <div class="game-container">
+      <div class="game-header">
+        <div class="game-info">
+          <span id="game-round-label" class="round-label">Round 1 / 5</span>
+          <div id="game-timer" class="timer">
+            <div id="game-timer-bar" class="timer-bar"></div>
+            <span id="game-timer-text" class="timer-text">3:00</span>
+          </div>
+        </div>
+        <div id="game-opponents" class="opponents-bar"></div>
+      </div>
+
+      <div id="game-grid-area" class="grid-area">
+        <!-- Grid rendered by JS -->
+      </div>
+
+      <div id="game-message" class="game-message"></div>
+
+      <div id="game-keyboard" class="keyboard">
+        <!-- Keyboard rendered by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== COUNTDOWN OVERLAY ========== -->
+  <div id="overlay-countdown" class="overlay" style="display:none">
+    <div class="countdown-content">
+      <p class="countdown-label" id="countdown-label">Round 1</p>
+      <div class="countdown-number" id="countdown-number">3</div>
+    </div>
+  </div>
+
+  <!-- ========== REVEAL SCREEN ========== -->
+  <div id="screen-reveal" class="screen">
+    <div class="reveal-container">
+      <div class="reveal-header">
+        <h2>Round Complete!</h2>
+        <p class="reveal-word">The word was <span id="reveal-answer" class="reveal-answer-text">CRANE</span></p>
+      </div>
+      <div id="reveal-grids" class="reveal-grids"></div>
+      <div id="reveal-scores" class="reveal-scores glass-panel"></div>
+      <p id="reveal-next" class="reveal-next">Next round starting soon…</p>
+    </div>
+  </div>
+
+  <!-- ========== RESULTS SCREEN ========== -->
+  <div id="screen-results" class="screen">
+    <div class="results-container">
+      <div class="results-header">
+        <div class="trophy">🏆</div>
+        <h2>Game Over!</h2>
+      </div>
+      <div id="results-podium" class="results-podium"></div>
+      <div id="results-table" class="results-table glass-panel"></div>
+      <div class="results-actions">
+        <button id="btn-play-again" class="btn btn-primary btn-large">Play Again</button>
+        <button id="btn-go-home" class="btn btn-secondary">Home</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== TOAST NOTIFICATION ========== -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <script src="socket.js"></script>
+  <script src="grid.js"></script>
+  <script src="keyboard.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
