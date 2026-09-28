@@ -423,7 +423,7 @@ setInterval(() => {
             rooms.delete(id);
         }
     }
-}, 5 * 60 * 1000);
+}, 5 * 60 * 1000).unref();
 
 module.exports = {
     createRoom, joinRoom, startGame, startRound, submitGuess,
